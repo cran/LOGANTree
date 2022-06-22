@@ -4,12 +4,14 @@
 \alias{RocPlot}
 \title{ROC Curves Plot}
 \usage{
-RocPlot(ModelObject, testdata, reflevel)
+RocPlot(ModelObject, testdata, outcome, reflevel)
 }
 \arguments{
 \item{ModelObject}{An object obtained from TreeModels() or TreeModelsAllSteps() functions.}
 
 \item{testdata}{A testing dataset.}
+
+\item{outcome}{A character string with the name of the binary outcome variable.}
 
 \item{reflevel}{A character string with the quoted reference level of outcome.}
 }
@@ -22,9 +24,11 @@ ROC Curves Plot
 \examples{
 \donttest{
 colnames(training)[14] <- "perf"
+colnames(testing)[14] <- "perf"
 ensemblist <- TreeModels(traindata = training,
 methodlist = c("dt", "gbm","rf"),checkprogress = TRUE)
 
-RocPlot(ModelObject = ensemblist$ModelObject, testdata = testing, reflevel = "incorrect")
+RocPlot(ModelObject = ensemblist$ModelObject, testdata = testing,
+outcome = "perf", reflevel = "incorrect")
 }
 }
